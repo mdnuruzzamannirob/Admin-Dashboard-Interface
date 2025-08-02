@@ -13,6 +13,7 @@ import {
 import AddEditUserModal from "./AddEditUserModal";
 import UserTable from "./UserTable";
 import UserSearchFilter from "./UserSearchFilter";
+import { usersData } from "@/data/usersData";
 
 const ROLES = ["Admin", "Editor", "Viewer"];
 const ROWS_PER_PAGE = 10;
@@ -38,10 +39,8 @@ const UserManagementTable = () => {
   const [formErrors, setFormErrors] = useState<Partial<UserForm>>({});
 
   useEffect(() => {
-    fetch("/src/data/mock_users.json")
-      .then((res) => res.json())
-      .then((data) => dispatch(setUsers(data)))
-      .catch(() => dispatch(setUsers([])));
+    // Directly load data from imported object
+    dispatch(setUsers(usersData));
   }, [dispatch]);
 
   const filteredUsers = users.filter(
