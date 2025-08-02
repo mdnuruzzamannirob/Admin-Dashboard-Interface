@@ -74,11 +74,10 @@ src/
 │ └── users/ # User data & actions (userSlice.ts)
 ├── layouts/ # Dashboard layout (Sidebar, Topbar)
 ├── pages/
-│ ├── Login.tsx # Login form page
-│ └── Dashboard.tsx # Main dashboard UI
-├── redux/ # store.ts and rootReducer setup
+│ ├── LoginPage.tsx # Login form page
+│ └── DashboardPage.tsx # Main dashboard UI
+├── store/ # store.ts and rootReducer setup
 ├── types/ # TypeScript interfaces
-└── App.tsx
 ```
 
 ---
@@ -108,7 +107,7 @@ export const store = configureStore({
 ### 👥 userSlice.ts
 
 - Stores user list and filters.
-- Actions: `addUser`, `editUser`, `toggleUserStatus`, `setFilter`, etc.
+- Actions: `setUsers`, `addUser`, `updateUser`, `toggleUserActive`, etc.
 
 ## 🧪 How to Run Locally
 
