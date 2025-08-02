@@ -10,9 +10,11 @@ import { loginSchema, type LoginFormData } from "@/lib/auth";
 import { Form } from "../ui/form";
 import { useAppDispatch } from "@/store/hook";
 import { login } from "@/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [remember, setRemember] = useState(false);
@@ -42,12 +44,11 @@ const AuthForm = () => {
     try {
       dispatch(login(payload));
       localStorage.setItem("user", JSON.stringify(payload.user));
-
       toast.success("Login Successful", {
         // description: "You have successfully logged in",
         duration: 2000,
       });
-      // router.push((redirect as string) || "/home");
+      navigate("/");
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || "An unexpected error occurred.";
