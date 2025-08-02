@@ -1,69 +1,162 @@
-# React + TypeScript + Vite
+# 🛠️ Admin Dashboard Interface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal admin dashboard built with **React.js**, **Redux Toolkit**, **Tailwind CSS**, **TypeScript**, and **Shadcn UI**. This project simulates user management features and showcases state management, component structure, and responsive layout handling.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Site
 
-## Expanding the ESLint configuration
+🔗 [Live Demo](https://admin-dashboard-interface-eight.vercel.app)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **React.js** (Functional Components)
+- **Redux Toolkit**
+- **TypeScript**
+- **Tailwind CSS**
+- **Shadcn UI**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🧰 Features Implemented
+
+### ✅ 1. Login Simulation
+
+- Simple login form (no real auth).
+- On login, user is redirected to the dashboard.
+- Login state is maintained using Redux.
+
+### ✅ 2. Dashboard Layout
+
+- Fixed sidebar & top navigation bar.
+- Fully responsive (mobile to desktop).
+- Uses semantic icons and Tailwind utility classes.
+
+### ✅ 3. User Management Table
+
+- Displays a list of users from mock JSON data.
+- Fields: Name, Email, Role, Status.
+- Status toggle for Active/Inactive.
+- Client-side pagination implemented.
+
+### ✅ 4. Add/Edit User Modal
+
+- Modal form for creating/editing users.
+- Form includes validation for all fields.
+- Edit button per row pre-fills the form.
+
+### ✅ 5. Search & Filter
+
+- Search bar filters by name or email.
+- Role dropdown filters by Admin/Editor/Viewer.
+
+### ✅ 6. Logout Functionality
+
+- Logout button clears Redux store and redirects to login.
+
+### 🎁 Bonus: Inactive User Notification
+
+- Notification banner at the top showing total inactive users.
+- If more than 5 are inactive, shows a warning alert.
+
+---
+
+## 🗂️ Folder Structure Overview
+
+```
+src/
+├── assets/ # Icons or images
+├── components/ # Reusable components (Button, Modal, etc.)
+├── features/
+│ ├── auth/ # Login state (authSlice.ts)
+│ └── users/ # User data & actions (userSlice.ts)
+├── layouts/ # Dashboard layout (Sidebar, Topbar)
+├── pages/
+│ ├── Login.tsx # Login form page
+│ └── Dashboard.tsx # Main dashboard UI
+├── redux/ # store.ts and rootReducer setup
+├── types/ # TypeScript interfaces
+└── App.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧠 Redux Structure Explained
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+### 🔑 store.ts
+
+```ts
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "../features/auth/authSlice";
+import userReducer from "../features/users/userSlice";
+
+export const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    users: userReducer,
   },
-])
+});
 ```
+
+### 🔐 authSlice.ts
+
+- Holds `isLoggedIn` state.
+- Actions: `login`, `logout`.
+
+### 👥 userSlice.ts
+
+- Stores user list and filters.
+- Actions: `addUser`, `editUser`, `toggleUserStatus`, `setFilter`, etc.
+
+## 🧪 How to Run Locally
+
+### Clone the repository
+
+- git clone https://github.com/mdnuruzzamannirob/Admin-Dashboard-Interface
+
+- cd Admin-Dashboard-Interface
+
+### Install dependencies
+
+- npm install
+
+### Start the dev server
+
+- npm run dev
+
+## 📌 Notes
+
+- No backend used — all user data is stored in Redux (simulated).
+- Clean, modular components for better reusability.
+- Code is TypeScript-typed for safety and clarity.
+
+## 📎 Tasks & Checklist from Job Description
+
+```
+| Task                          | Status  |
+| ----------------------------- | ------  |
+| Login Simulation              | ✅ Done |
+| Fixed Sidebar + Topbar        | ✅ Done |
+| User Management Table         | ✅ Done |
+| Add/Edit Modal                | ✅ Done |
+| Search & Filter               | ✅ Done |
+| Logout                        | ✅ Done |
+| Bonus: Inactive User Warning  | ✅ Done |
+| Responsive UI                 | ✅ Done |
+| Redux State Management        | ✅ Done |
+| Clean Code Structure          | ✅ Done |
+| README with Setup + Structure | ✅ Done |
+
+```
+
+## 👨‍💻 Author
+
+Made with ❤️ by
+
+Md. Nuruzzaman
+
+🔗 [LinkedIn](https://www.linkedin.com/in/nuruzzamanmd2002/)
+
+🔗 [Portfolio](https://mdnuruzzaman.web.app/)
