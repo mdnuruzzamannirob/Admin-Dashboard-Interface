@@ -113,7 +113,7 @@ export const store = configureStore({
 
 ### Clone the repository
 
-- git clone https://github.com/mdnuruzzamannirob/Admin-Dashboard-Interface
+- git clone https://github.com/mdnuruzzamannirob/Admin-Dashboard-Interface.git
 
 - cd Admin-Dashboard-Interface
 
