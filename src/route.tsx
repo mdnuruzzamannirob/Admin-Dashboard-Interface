@@ -1,9 +1,13 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";
 import DashboardPage from "./pages/DashboardPage";
 
 const Route = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/dashboard" replace />,
+  },
   {
     path: "/login",
     element: <LoginPage />,
@@ -16,7 +20,6 @@ const Route = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
-      // manager dashboard routes //
       {
         path: "users",
         element: (
@@ -25,24 +28,8 @@ const Route = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path: "manage-product/add-product",
-      //   element: (
-      //     <ShopManagerRoute>
-      //       <AddProduct />
-      //     </ShopManagerRoute>
-      //   ),
-      // },
     ],
   },
-  //   {
-  //     path: "/error/unauthorized",
-  //     element: , //<UnauthorizedErrorPage />
-  //   },
-  //   {
-  //     path: "/error/forbidden",
-  //     element: <ForbiddenErrorPage />, //<ForbiddenErrorPage />
-  //   },
 ]);
 
 export default Route;
