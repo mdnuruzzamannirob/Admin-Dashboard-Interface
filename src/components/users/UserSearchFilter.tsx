@@ -26,7 +26,7 @@ const UserSearchFilter: React.FC<SearchAndFilterProps> = ({
   roles,
 }) => {
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const normalized = e.target.value.trimStart(); // Keep spacing control, remove front spaces
+    const normalized = e.target.value.trim(); // Keep spacing control, remove front spaces
     onSearchChange(normalized);
   };
 

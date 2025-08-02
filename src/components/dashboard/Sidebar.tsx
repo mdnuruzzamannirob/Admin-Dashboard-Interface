@@ -3,6 +3,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import NavItem from "./NavItem";
 import { cn } from "@/lib/utils";
 import { sideNavItems } from "@/constants/sideNavItems";
+import { NavLink } from "react-router-dom";
 
 type Props = {
   isOpen: boolean;
@@ -17,7 +18,9 @@ export const Sidebar = ({ isOpen, onClose }: Props) => {
         lg:static lg:translate-x-0 lg:block`}
     >
       <div className="flex items-center justify-between h-16 px-4 border-b lg:justify-center">
-        <span className="font-bold text-lg">Tech Element It</span>
+        <NavLink to={"/dashboard/users"} className="font-bold text-lg">
+          Tech Element It
+        </NavLink>
         <button
           onClick={onClose}
           className="text-xl lg:hidden"

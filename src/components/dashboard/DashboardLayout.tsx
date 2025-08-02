@@ -3,6 +3,7 @@ import { Sidebar } from "./Sidebar";
 import { Navbar } from "./Header";
 import { useSelector } from "react-redux";
 import { selectUsers } from "@/features/users/userSlice";
+import NotificationBanner from "../users/NotificationBanner";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -57,25 +58,10 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
     <>
       {/* Banner */}
       {showBanner && (
-        <div
-          className={`w-full px-4 py-2 text-sm flex items-center justify-center transition-all duration-300 z-[100] ${
-            inactiveUserCount > 5
-              ? "bg-yellow-100 text-yellow-800 border-b border-yellow-300"
-              : "bg-blue-100 text-blue-800 border-b border-blue-300"
-          }`}
-        >
-          <span>Inactive users: {inactiveUserCount}</span>
-          <button
-            className={`ml-4 px-2 py-1 text-xs rounded border transition ${
-              inactiveUserCount > 10
-                ? "hover:bg-yellow-200 border-yellow-300 text-yellow-800"
-                : "hover:bg-blue-200 border-blue-300 text-blue-800"
-            }`}
-            onClick={() => setShowBanner(false)}
-          >
-            ✕
-          </button>
-        </div>
+        <NotificationBanner
+          inactiveUserCount={inactiveUserCount}
+          setShowBanner={setShowBanner}
+        />
       )}
 
       <div className="min-h-dvh flex flex-col lg:flex-row bg-gray-100 overflow-hidden">

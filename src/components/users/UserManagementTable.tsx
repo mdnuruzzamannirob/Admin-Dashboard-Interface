@@ -10,16 +10,18 @@ import {
   toggleUserActive,
   updateUser,
 } from "@/features/users/userSlice";
-import AddEditUserModal from "../users/AddEditUserModal";
-import UserTable from "../users/UserTable";
-import UserSearchFilter from "../users/UserSearchFilter";
+import AddEditUserModal from "./AddEditUserModal";
+import UserTable from "./UserTable";
+import UserSearchFilter from "./UserSearchFilter";
 
 const ROLES = ["Admin", "Editor", "Viewer"];
 const ROWS_PER_PAGE = 10;
 
 const UserManagementTable = () => {
   const dispatch = useDispatch();
-  const users = useSelector(selectUsers);
+  const users = useSelector(selectUsers)
+    ?.slice()
+    .sort((a, b) => new Date(b.id).getTime() - new Date(a.id).getTime());
 
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");

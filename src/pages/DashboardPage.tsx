@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import UserManagementTable from "@/components/dashboard/UserManagementTable";
+import UserManagementTable from "@/components/users/UserManagementTable";
 
 const DashboardPage = () => {
   return (
