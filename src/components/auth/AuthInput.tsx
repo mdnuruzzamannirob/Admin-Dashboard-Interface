@@ -28,13 +28,15 @@ const AuthInput = ({
       name={name}
       render={({ field }) => (
         <div className={cn("w-full space-y-2", className)}>
-          <FormLabel className={labelClassName}>{label}</FormLabel>
+          <FormLabel className={cn("text-muted-foreground", labelClassName)}>
+            {label}
+          </FormLabel>
           <div className="flex w-full flex-col gap-1">
             <FormControl>
               <input
                 placeholder={placeholder}
                 className={cn(
-                  "bg-surface ring-primary h-9 rounded-sm border px-3 focus:border-transparent focus:ring-2",
+                  "bg-gray-100 py-[6px] px-3 rounded-sm border outline-none focus:ring-2 focus:ring-primary",
                   inputClassName
                 )}
                 type={type}

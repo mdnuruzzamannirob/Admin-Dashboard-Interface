@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+// import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { toast } from "react-hot-toast";
 import { cn } from "../../lib/utils";
 import AuthInput from "./AuthInput";
 import { loginSchema, type LoginFormData } from "@/lib/auth";
 import { Form } from "../ui/form";
+import { useAppDispatch } from "@/store/hook";
+import { login } from "@/features/auth/authSlice";
 
 const AuthForm = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [isRemember, setIsRemember] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [remember, setRemember] = useState(false);
+  const [showPass] = useState(false);
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -25,44 +27,27 @@ const AuthForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    setIsLoading(true);
     console.log(data);
+    setLoading(true);
+
+    const payload = {
+      isRemembered: remember,
+      user: {
+        id: Math.random().toString(36).substring(7), // Mock user ID
+        email: data.email,
+        name: "",
+      },
+    };
+
     try {
-      // const response = await axios.post(`/login`, {
-      //   identifier: data.identifier,
-      //   password: data.password,
-      // });
+      dispatch(login(payload));
+      localStorage.setItem("user", JSON.stringify(payload.user));
 
-      const response = null as any;
-
-      if (response.status === 200) {
-        // dispatch(addUserData(response.data));
-        localStorage.setItem("userInfo", JSON.stringify(response.data));
-
-        const expiryDate = new Date(
-          new Date().getTime() + 7 * 24 * 60 * 60 * 1000
-        ).toUTCString();
-
-        // Use more robust cookie setting and ensure all values are encoded
-        const setCookie = (name: string, value: string) => {
-          document.cookie = `${name}=${encodeURIComponent(
-            value
-          )}; expires=${expiryDate}; path=/; SameSite=Strict; Secure;`;
-        };
-
-        setCookie("jwt", response.data.tokens.token);
-        setCookie("refreshJwt", response.data.tokens.refreshToken);
-        setCookie("userInfo", JSON.stringify(response.data));
-        setCookie("userEmail", response.data.email);
-        setCookie("userRole", response.data.role);
-        setCookie("userPhone", response.data.phone);
-
-        toast.success("Login Successful", {
-          // description: "You have successfully logged in",
-          duration: 2000,
-        });
-        // router.push((redirect as string) || "/home");
-      }
+      toast.success("Login Successful", {
+        // description: "You have successfully logged in",
+        duration: 2000,
+      });
+      // router.push((redirect as string) || "/home");
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || "An unexpected error occurred.";
@@ -71,7 +56,7 @@ const AuthForm = () => {
         duration: 2000,
       });
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -97,43 +82,47 @@ const AuthForm = () => {
                 name="password"
                 label="Password"
                 placeholder="Enter password"
-                type={showPassword ? "text" : "password"}
+                type={showPass ? "text" : "password"}
               />
-              <button
+              {/* <button
                 type="button"
-                className="absolute right-1 bottom-2 z-10 flex items-center bg-zinc-50 px-2 text-xl text-gray-600 dark:text-gray-300"
-                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-1 bottom-2  z-10 flex items-center bg-transparent cursor-pointer px-2 text-xl text-gray-600 dark:text-gray-300"
+                onClick={() => setShowPass(!showPass)}
               >
-                {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-              </button>
+                {showPass ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+              </button> */}
             </div>
             <div className="flex w-full justify-between gap-3 select-none">
               <button
                 type="button"
-                onClick={() => setIsRemember(!isRemember)}
-                className="text-muted-foreground flex items-center gap-1"
+                onClick={() => setRemember(!remember)}
+                className="text-muted-foreground text-sm font-medium cursor-pointer flex items-center gap-1"
               >
-                {isRemember ? (
+                {remember ? (
                   <MdCheckBox
-                    className={cn("text-xl", isRemember && "text-primary")}
+                    className={cn("text-lg", remember && "text-primary")}
                   />
                 ) : (
-                  <MdCheckBoxOutlineBlank className="text-xl" />
+                  <MdCheckBoxOutlineBlank className="text-lg" />
                 )}
-                <span className={isRemember ? "text-primary" : ""}>
+                <span className={remember ? "text-primary" : ""}>
                   Remember Me
                 </span>
               </button>
               <button
                 type="button"
                 // onClick={() => router.push("/forgot-password")}
-                className="text-primary"
+                className=" text-sm font-medium cursor-pointer text-muted-foreground"
               >
                 Forgot Password?
               </button>
             </div>
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? <>Loading...</> : "Login"}
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-primary hover:bg-primary/90 h-9 w-full gap-1 rounded-sm text-white"
+            >
+              {loading ? <>Loading...</> : "Login"}
             </button>
             {/* <Button
             type="submit"
@@ -145,11 +134,11 @@ const AuthForm = () => {
           </div>
         </form>
       </Form>
-      <footer className="flex justify-center gap-1">
+      <footer className="flex justify-center gap-1 text-sm text-muted-foreground">
         <p>Don't have an account?</p>
         <button
           // onClick={() => router.push("/register")}
-          className="text-primary font-medium"
+          className="text-primary cursor-pointer font-medium"
         >
           Register
         </button>
