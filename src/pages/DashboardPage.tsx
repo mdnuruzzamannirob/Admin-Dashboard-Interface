@@ -1,9 +1,10 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
+import UserManagementTable from "@/components/dashboard/UserManagementTable";
 
 const DashboardPage = () => {
   return (
     <DashboardLayout>
-      <h1>Dashboard</h1>
+      <UserManagementTable />
     </DashboardLayout>
   );
 };

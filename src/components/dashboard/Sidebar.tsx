@@ -1,4 +1,7 @@
+import { logout } from "@/features/auth/authSlice";
+import { useAppDispatch } from "@/store/hook";
 import { IoCloseOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   isOpen: boolean;
@@ -19,6 +22,14 @@ export const Sidebar = ({ isOpen, onClose }: Props) => {
     { name: "Profile", path: "/profile" },
     { name: "Logout", path: "/logout" },
   ];
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
 
   return (
     <aside
@@ -45,6 +56,13 @@ export const Sidebar = ({ isOpen, onClose }: Props) => {
             {item.name}
           </button>
         ))}
+
+        <button
+          onClick={handleLogout}
+          className="block w-full text-left px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+        >
+          Logout
+        </button>
       </nav>
     </aside>
   );
