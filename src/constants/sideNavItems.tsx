@@ -4,8 +4,6 @@ import {
   MdSecurity,
   MdAssessment,
   MdBarChart,
-  MdSettings,
-  MdNotifications,
   MdListAlt,
   MdHelpOutline,
 } from "react-icons/md";
@@ -35,16 +33,6 @@ export const sideNavItems = [
     name: "Analytics",
     path: "/dashboard/analytics",
     icon: <MdBarChart className="mr-2 text-lg" />,
-  },
-  {
-    name: "Settings",
-    path: "/dashboard/settings",
-    icon: <MdSettings className="mr-2 text-lg" />,
-  },
-  {
-    name: "Notifications",
-    path: "/dashboard/notifications",
-    icon: <MdNotifications className="mr-2 text-lg" />,
   },
   {
     name: "Audit Logs",
