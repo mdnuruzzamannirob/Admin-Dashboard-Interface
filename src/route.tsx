@@ -6,7 +6,7 @@ import DashboardPage from "./pages/DashboardPage";
 const Route = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/dashboard" replace />,
+    element: <Navigate to="/dashboard/users" replace />,
   },
   {
     path: "/login",
