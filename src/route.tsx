@@ -9,7 +9,7 @@ const Route = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: "/",
+    path: "/dashboard",
     element: (
       <PrivateRoute>
         <DashboardPage />
@@ -17,15 +17,14 @@ const Route = createBrowserRouter([
     ),
     children: [
       // manager dashboard routes //
-      // {
-      //   path: "subscription",
-      //   element: (
-      //     <ShopManagerRoute>
-      //       <SubscriptionPayment />
-      //     </ShopManagerRoute>
-      //   ),
-      //   loader: () => fetch("/pricing.json"),
-      // },
+      {
+        path: "users",
+        element: (
+          <PrivateRoute>
+            <DashboardPage />
+          </PrivateRoute>
+        ),
+      },
       // {
       //   path: "manage-product/add-product",
       //   element: (

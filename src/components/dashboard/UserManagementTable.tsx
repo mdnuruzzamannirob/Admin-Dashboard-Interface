@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Table,
   TableHeader,
@@ -41,36 +41,10 @@ type UserForm = {
   active: boolean;
 };
 
-// Mock user data
-const initialUsers: User[] = [
-  {
-    id: 1,
-    name: "Alice Smith",
-    email: "alice@example.com",
-    role: "Admin",
-    active: true,
-  },
-  {
-    id: 2,
-    name: "Bob Jones",
-    email: "bob@example.com",
-    role: "Editor",
-    active: false,
-  },
-  {
-    id: 3,
-    name: "Carol White",
-    email: "carol@example.com",
-    role: "Viewer",
-    active: true,
-  },
-  // ...add more mock users as needed
-];
-
 const roles = ["Admin", "Editor", "Viewer"];
 
 const UserManagementTable = () => {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [users, setUsers] = useState<User[]>([]);
   const [search, setSearch] = useState<string>("");
   const [roleFilter, setRoleFilter] = useState<string>("all");
   const [page, setPage] = useState<number>(0);
@@ -90,6 +64,14 @@ const UserManagementTable = () => {
     email?: string;
     role?: string;
   }>({});
+
+  // Fetch users from mock_users.json on mount
+  useEffect(() => {
+    fetch("/src/data/mock_users.json")
+      .then((res) => res.json())
+      .then((data) => setUsers(data))
+      .catch(() => setUsers([]));
+  }, []);
 
   // Filtering
   const filteredUsers = users.filter(

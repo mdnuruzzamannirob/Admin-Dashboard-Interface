@@ -23,8 +23,8 @@ const AuthForm = () => {
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "dev.mdnuruzzaman@gmail.com",
+      password: "password123",
     },
   });
 
@@ -48,7 +48,7 @@ const AuthForm = () => {
         // description: "You have successfully logged in",
         duration: 2000,
       });
-      navigate("/");
+      navigate("/dashboard/users");
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message || "An unexpected error occurred.";

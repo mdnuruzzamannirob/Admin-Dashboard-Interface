@@ -1,4 +1,6 @@
-import { IoMenuOutline } from "react-icons/io5";
+import { RiMenuLine } from "react-icons/ri";
+import { GrNotification } from "react-icons/gr";
+import { UserPopover } from "./UserPopover";
 
 type Props = {
   onToggleSidebar: () => void;
@@ -7,13 +9,13 @@ type Props = {
 export const Navbar = ({ onToggleSidebar }: Props) => {
   return (
     <>
-      <header className="h-16 flex items-center justify-between px-4 bg-white border-b shadow-sm sticky top-0 z-20">
+      <header className="h-16 flex items-center justify-between px-5 bg-white border-b shadow-sm sticky top-0 z-20">
         <button
-          className="lg:hidden text-2xl"
+          className="lg:hidden cursor-pointer text-2xl"
           onClick={onToggleSidebar}
           aria-label="Toggle Sidebar"
         >
-          <IoMenuOutline />
+          <RiMenuLine />
         </button>
 
         {/* Centered Logo on Mobile */}
@@ -27,11 +29,12 @@ export const Navbar = ({ onToggleSidebar }: Props) => {
 
         {/* Searchbar & Circles */}
         <div className="flex items-center gap-4 ml-auto">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-gray-400" />
-            <div className="w-4 h-4 rounded-full bg-gray-400" />
-            <div className="w-4 h-4 rounded-full bg-gray-400" />
-          </div>
+          <button className="size-9 bg-gray-100 relative flex items-center justify-center rounded-full hover:bg-gray-100">
+            <GrNotification className="cursor-pointer size-4" />
+            <span className="absolute top-[2px] right-[2px] bg-red-500 text-white text-xs rounded-full size-2" />
+          </button>
+
+          <UserPopover />
         </div>
       </header>
     </>
